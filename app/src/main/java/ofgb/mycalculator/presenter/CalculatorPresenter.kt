@@ -8,10 +8,10 @@ class CalculatorPresenter(private var view: CalculatorContract.RequiredViewOpera
         CalculatorContract.RequiredPresenterOperations
 {
 
-
-
     private lateinit var model: CalculatorContract.ProvidedModelOperations
 
+    private var inputOne: Double = 0.0
+    private var inputTwo: Double = 0.0
 
 
     /** From Model **/
@@ -19,8 +19,6 @@ class CalculatorPresenter(private var view: CalculatorContract.RequiredViewOpera
     override fun setModel(model: CalculatorModel){
         this.model = model
     }
-
-
 
 
     /** From View **/
@@ -36,33 +34,31 @@ class CalculatorPresenter(private var view: CalculatorContract.RequiredViewOpera
         view.setCalculatedText(tempString)
     }
 
-    //Sets inputOne in model
+    //Sets inputOne to user input
     //Sets operator in model
     //Clears text field in view
     override fun operatorClick(operator: String) {
-        val tempString = view.getInput().toString().toDouble()
-        model.setInputOne(tempString)
-
+        val tempDouble = view.getInput().toString().toDouble()
+        inputOne = tempDouble
         model.setOperator(operator)
-
         view.setCalculatedText("")
     }
 
-    //Sets inputTwo in model
+    //Sets inputTwo to user input
     //Clears text field in view
     //Sets text field in view with models calculation result
     override fun equalsClick() {
-        val tempString = view.getInput().toString().toDouble()
-        model.setInputTwo(tempString)
+        val tempDouble = view.getInput().toString().toDouble()
+        inputTwo = tempDouble
         view.setCalculatedText("")
-        view.setCalculatedText(model.getFinalResult())
+        view.setCalculatedText(model.getFinalResult(inputOne, inputTwo))
     }
 
-    //Sets models' inputOne && inputTwo
+    //Resets inputOne && inputTwo
     //Clears text field in view
     override fun clearClick() {
-        model.setInputOne(0.0)
-        model.setInputTwo(0.0)
+        inputOne = 0.0
+        inputTwo = 0.0
         view.setCalculatedText("")
     }
 

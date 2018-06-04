@@ -27,11 +27,7 @@ interface CalculatorContract{
     //Presenter --> Model
     interface ProvidedModelOperations{
 
-        fun getFinalResult(): String
-
-        fun setInputOne(input: Double)
-
-        fun setInputTwo(input: Double)
+        fun getFinalResult(inputOne: Double, inputTwo: Double): String
 
         fun setOperator(operator: String)
 

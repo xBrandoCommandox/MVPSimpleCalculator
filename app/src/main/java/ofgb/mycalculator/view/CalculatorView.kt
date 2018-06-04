@@ -113,10 +113,6 @@ class CalculatorView: AppCompatActivity(), CalculatorContract.RequiredViewOperat
         inputText = findViewById(R.id.inputText)
     }
 
-
-
-
-
     /** From Presenter **/
 
     //Sets text fields text

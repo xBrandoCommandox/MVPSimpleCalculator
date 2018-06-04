@@ -5,8 +5,7 @@ import ofgb.mycalculator.contract.CalculatorContract
 
 class CalculatorModel(private var presenter: CalculatorContract.RequiredPresenterOperations): CalculatorContract.ProvidedModelOperations{
 
-    private var inputOne: Double = 0.0
-    private var inputTwo: Double = 0.0
+
 
     enum class Operator {
         MULTIPLY, ADD, SUBTRACT, DIVIDE
@@ -16,13 +15,6 @@ class CalculatorModel(private var presenter: CalculatorContract.RequiredPresente
 
 
     /** From Presenter to Model **/
-    override fun setInputOne(input: Double) {
-        inputOne = input
-    }
-
-    override fun setInputTwo(input: Double) {
-        inputTwo = input
-    }
 
     //Sets desired operator
     override fun setOperator(operator: String){
@@ -35,9 +27,8 @@ class CalculatorModel(private var presenter: CalculatorContract.RequiredPresente
     }
 
 
-
     /** To Presenter from Model **/
-    override fun getFinalResult(): String {
+    override fun getFinalResult(inputOne: Double, inputTwo: Double): String {
         var tempString = ""
 
         when(operator){
