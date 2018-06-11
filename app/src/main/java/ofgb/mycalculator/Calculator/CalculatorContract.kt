@@ -1,6 +1,4 @@
-package ofgb.mycalculator.contract
-
-import ofgb.mycalculator.model.CalculatorModel
+package ofgb.mycalculator.Calculator
 
 
 interface CalculatorContract{
@@ -11,15 +9,16 @@ interface CalculatorContract{
 
         fun numberClick(number: Int)
 
-        fun operatorClick(operator: String)
+        fun operatorClick(operator: String, input: String)
 
-        fun equalsClick()
+        fun equalsClick(input: String)
 
         fun clearClick()
 
-        fun setView(view: CalculatorContract.RequiredViewOperations)
+        fun setView(view: RequiredViewOperations)
 
         fun initiateModel()
+
 
 
     }
@@ -27,10 +26,7 @@ interface CalculatorContract{
     //Presenter --> Model
     interface ProvidedModelOperations{
 
-        fun getFinalResult(inputOne: Double, inputTwo: Double): String
-
-        fun setOperator(operator: String)
-
+        //None yet
 
     }
 
@@ -39,7 +35,7 @@ interface CalculatorContract{
     //Model --> Presenter
     interface RequiredPresenterOperations{
 
-        fun setModel(model: CalculatorModel)
+        //None yet
 
     }
 
@@ -47,8 +43,6 @@ interface CalculatorContract{
     interface RequiredViewOperations{
 
         fun setCalculatedText(number: String)
-
-        fun getInput(): Double
 
     }
 

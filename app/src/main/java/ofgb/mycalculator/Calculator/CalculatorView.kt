@@ -1,12 +1,10 @@
-package ofgb.mycalculator.view
+package ofgb.mycalculator.Calculator
 
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import ofgb.mycalculator.R
-import ofgb.mycalculator.contract.CalculatorContract
-import ofgb.mycalculator.presenter.CalculatorPresenter
 
 class CalculatorView: AppCompatActivity(), CalculatorContract.RequiredViewOperations{
 
@@ -53,7 +51,37 @@ class CalculatorView: AppCompatActivity(), CalculatorContract.RequiredViewOperat
 
     }
 
+
+
+    /** ---------------------- Presenter Callbacks / UI Setters ---------------------- **/
+
+    //Sets text fields text
+    override fun setCalculatedText(number: String) {
+        if(number == ""){
+            tempString = ""
+        }else{
+            tempString += number
+        }
+        inputText.setText(tempString)
+    }
+
+
+
+    /** ---------------------- CalculatorViews private functions ---------------------- **/
+
+    //Gets text from the input field
+    fun getInputText():String{
+        if(inputText.text.toString() == ""){
+            return ""
+        }else{
+            return inputText.text.toString()
+        }
+    }
+
+    //Sets all UI Components && Listeners
     private fun setAllButtonsAndFields(){
+        inputText = findViewById(R.id.inputText)
+
         zeroButton = findViewById(R.id.zeroButton)
         zeroButton.setOnClickListener{presenter.numberClick(0)}
 
@@ -96,39 +124,21 @@ class CalculatorView: AppCompatActivity(), CalculatorContract.RequiredViewOperat
         posNegButton = findViewById(R.id.posNegButton)
 
         divideButton = findViewById(R.id.divideButton)
-        divideButton.setOnClickListener{presenter.operatorClick("Divide")}
+        divideButton.setOnClickListener{presenter.operatorClick("Divide", getInputText())}
 
         multiplyButton = findViewById(R.id.multiplyButton)
-        multiplyButton.setOnClickListener{presenter.operatorClick("Multiply")}
+        multiplyButton.setOnClickListener{presenter.operatorClick("Multiply", getInputText())}
 
         minusButton = findViewById(R.id.minusButton)
-        minusButton.setOnClickListener{presenter.operatorClick("Subtract")}
+        minusButton.setOnClickListener{presenter.operatorClick("Subtract", getInputText())}
 
         plusButton = findViewById(R.id.plusButton)
-        plusButton.setOnClickListener{presenter.operatorClick("Add")}
+        plusButton.setOnClickListener{presenter.operatorClick("Add", getInputText())}
 
         equalButton = findViewById(R.id.equalButton)
-        equalButton.setOnClickListener{presenter.equalsClick()}
+        equalButton.setOnClickListener{presenter.equalsClick(getInputText())}
 
-        inputText = findViewById(R.id.inputText)
+
     }
-
-    /** From Presenter **/
-
-    //Sets text fields text
-    override fun setCalculatedText(number: String) {
-        if(number == ""){
-            tempString = ""
-        }else{
-            tempString += number
-        }
-        inputText.setText(tempString)
-    }
-
-    //Gets current input from text field
-    override fun getInput(): Double{
-        return tempString.toDouble()
-    }
-
 
 }
